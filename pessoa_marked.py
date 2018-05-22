@@ -5,9 +5,16 @@ from pessoa import Pessoa
 
 class PessoaMarkedForDeath(Pessoa):
 
+    status = "viva"
+
     @property
     def idade_maxima(self):
-        return 90
+        return 85
+
+    @property
+    def status(self):
+        status = "viva" if self.faz_aniversario() else "morta"
+        return status
 
     def esta_viva(self):
         if self.idade_maxima <= self.calcula_idade():
@@ -16,8 +23,5 @@ class PessoaMarkedForDeath(Pessoa):
 
     def faz_aniversario(self):
         if not self.esta_viva():
-            return "morreu"
-
-pm = PessoaMarkedForDeath("1890/09/30")
-print pm.idade_maxima
-print 'vivo', pm.esta_viva()
+            return False
+        return True
