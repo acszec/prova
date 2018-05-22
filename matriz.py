@@ -52,6 +52,12 @@ def calcula_data_nascimento():
     df["ano_nascimento"] = df["idade_atual"].apply(lambda x: ano_atual - x)
     return df
 
+def calcula_media():
+    df = matriz()
+    media = df["idade_atual"].mean()
+    print media
+
+
 def cria_excel():
     df = calcula_data_nascimento()
     df["classe_da_pessoa"] = df["classe_da_pessoa"].apply(lambda x: x.nome)
@@ -61,4 +67,4 @@ def cria_excel():
     print "excel criado"
 
 
-print cria_excel()
+print calcula_media()
