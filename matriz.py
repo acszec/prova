@@ -15,13 +15,20 @@ def id_autoincrement(quantity=151):
     for i in range(1, quantity):
         yield i
 
+def matriz():
+    """:return DataFrame"""
+    d = {
+            'id': [_id for _id in id_autoincrement(151)],
+            'idade_maxima': np.random.randint(128, size=150),
+            'idade_atual': np.random.randint(128, size=150),
+            'classe_da_pessoa': [pessoa for pessoa in criar_pessoas(151)]
+        }
 
-d = {
-        'id': [_id for _id in id_autoincrement(151)],
-        'idade_maxima': np.random.randint(128, size=150),
-        'idade_atual': np.random.randint(128, size=150),
-        'classe_da_pessoa': [pessoa for pessoa in criar_pessoas(151)]
-    }
+    df = pd.DataFrame(data=d)
+    return df
 
-df = pd.DataFrame(data=d)
-print df
+def adiciona_15aniversarios(df):
+    df["idade+15"] = df["idade_atual"].apply(lambda x: x + 15)
+    return df
+
+print adiciona_15aniversarios(matriz())
