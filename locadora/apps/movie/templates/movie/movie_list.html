@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}filmes{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <h3 class="text-center">Filmes</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <table class="table table-striped">
+            <thead>
+                <th>Nome do Filme</th>
+                <th>Categoria</th>
+                <th>Total</th>
+                <th>Alugados</th>
+            </thead>
+            <tbody>
+                {% for movie in movie_list %}
+                    <tr>
+                        <td>{{ movie.name }}</td>
+                        <td>{{ movie.category.name }}</td>
+                        <td>{{ movie.quantity }}</td>
+                        <td>{{ movie.rented }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="text-center">
+            {% bootstrap_pagination page_obj extra=request.GET.urlencode %}
+        </div>
+    </div>
+    </div>
+{% endblock %}

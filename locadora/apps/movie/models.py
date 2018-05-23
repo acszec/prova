@@ -14,3 +14,7 @@ class Movie(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def remaining(self):
+        return self.quantity - self.rented

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}cliente{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <h3 class="text-center">{{ customer.name }}</h3>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <!--FILMES ALUGADOS-->
+        <div class="col-md-4 col-lg-4">
+            <h4>Filmes Alugados</h4>
+            {% if customer.rented_movies.count %}
+                <table class="table">
+                    <tbody>
+                        {% for rented in customer.rented_movies.all %}
+                            <tr><td>{{ rented }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Esse cliente não alugou nenhum filme</p>
+            {% endif %}
+        </div>
+
+        <!--ALUGAR-->
+        <div class="col-md-8 col-lg-8">
+            <h4>Filmes Disponiveis para Alugar: {{ total_movies }}</h4>
+            <div class="scroll-rent">
+                <form id="formRent" method="POST" action="{% url 'customer_detail' customer_id=customer.pk %}">
+                    {% csrf_token %}
+                    {% for movie in movies %}
+                        <input id="movie-{{ movie.id }}" type="checkbox" name="{{ movie.id }}">
+                        <label for="movie-{{ movie.id }}">{{ movie.name }} - {{ movie.category.name }} - <small>Disponíveis: {{ movie.remaining }}</small></label>
+                        <br>
+                    {% endfor %}
+                </form>
+            </div>
+            <br>
+            <input type="submit" form="formRent" class="btn btn-success btn-block" value="Confirmar Locação">
+        </div>
+    </div>
+</div>
+{% endblock %}

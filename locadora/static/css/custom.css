@@ -1,0 +1,28 @@
+.div-pagination{
+    top: 130px;
+}
+
+.nav-filtros{
+    padding-right: 30px;
+}
+
+.nav-filtros > label, .nav li.menu > a{
+    color: white;
+}
+
+.nav li.menu.home > a{
+    font-size: larger;
+}
+
+.nav li.menu > a:hover{
+    color: gray;
+}
+
+.row-team-flag{
+    padding-right: 50px;
+}
+
+.scroll-rent{
+    height: 400px;
+    overflow: overlay;
+}

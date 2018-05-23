@@ -52,11 +52,12 @@ def calcula_data_nascimento():
     df["ano_nascimento"] = df["idade_atual"].apply(lambda x: ano_atual - x)
     return df
 
-def calcula_media():
+def calcula_medias():
     df = matriz()
-    media = df["idade_atual"].mean()
-    print media
-
+    media_idade = df["idade_atual"].mean()
+    media_tempo_para_morrer = df["idade_maxima"].mean()
+    dicionario = {"media_idade": media_idade, "media_tempo_para_morrer": media_tempo_para_morrer}
+    return dicionario
 
 def cria_excel():
     df = calcula_data_nascimento()
@@ -67,4 +68,4 @@ def cria_excel():
     print "excel criado"
 
 
-print calcula_media()
+print adiciona_status_vida()
