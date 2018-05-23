@@ -1,3 +1,4 @@
 pandas==0.23.0
 Django==1.11
 xlsxwriter
+django-bootstrap3
