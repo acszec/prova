@@ -12,11 +12,18 @@ class CustomerListView(ListView):
     model = Customer
     context_object_name = "customer_list"
     template_name = "customer/customer_list.html"
-    paginate_by = 10
+    paginate_by = 9
 
     def get_context_data(self, *args, **kwargs):
         context = super(CustomerListView, self).get_context_data(*args, **kwargs)
         return context
+
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
 
 
 class CustomerDetailView(DetailView):
@@ -27,8 +34,10 @@ class CustomerDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(CustomerDetailView, self).get_context_data(*args, **kwargs)
         movies = Movie.objects.exclude(id__in=[c.id for c in self.object.rented_movies.all()])
-        context["movies"] = movies
+        context["movies"] = movies.order_by('category')
         context["total_movies"] = movies.count()
+        # import ipdb
+        # ipdb.set_trace()
         return context
 
     def get_object(self):
@@ -38,8 +47,6 @@ class CustomerDetailView(DetailView):
         return obj
 
     def post(self, *args, **kwargs):
-        import ipdb
-        # ipdb.set_trace()
         request = self.request.POST.copy()
         del request['csrfmiddlewaretoken']
         self.object = self.get_object()

@@ -6,6 +6,12 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12 col-lg-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'customer_list' %}">Clientes</a></li>
+            <li class="active"><a href="{% url 'customer_detail' customer_id=customer.pk %}">{{ customer.name}}</a></li>
+        </ol>
+
         <h3 class="text-center">{{ customer.name }}</h3>
         <hr>
     </div>
@@ -15,7 +21,7 @@
     <div class="col-md-12 col-lg-12">
         <!--FILMES ALUGADOS-->
         <div class="col-md-5 col-lg-5">
-            <h4>Filmes Alugados</h4>
+            <h4>Filmes Alugados: {{ customer.rented_movies.count }}</h4>
             <div class="scroll-rent">
                 {% if customer.rented_movies.count %}
                     <form id="formGiveBack" method="POST" action="{% url 'customer_detail' customer_id=customer.pk %}">
@@ -55,12 +61,16 @@
                         <thead>
                             <th class="col-md-1 col-lg-1">alugar</th>
                             <th>filme</th>
+                            <th>categoria</th>
+                            <th>disponíveis</th>
                         </thead>
                         <tbody>
                             {% for movie in movies %}
                                 <tr>
                                     <td><input id="movie-{{ movie.id }}" type="checkbox" name="{{ movie.id }}"></td>
-                                    <td><label for="movie-{{ movie.id }}">{{ movie.name }} - {{ movie.category.name }} - <small>Disponíveis: {{ movie.remaining }}</small></label></td>
+                                    <td><label for="movie-{{ movie.id }}">{{ movie.name }}</label></td>
+                                    <td>{{ movie.category.name }}</td>
+                                    <td>{{ movie.remaining }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

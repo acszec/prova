@@ -9,11 +9,18 @@ class MovieListView(ListView):
     model = Movie
     context_object_name = "movie_list"
     template_name = "movie/movie_list.html"
-    paginate_by = 10
+    paginate_by = 9
 
     def get_context_data(self, *args, **kwargs):
         context = super(MovieListView, self).get_context_data(*args, **kwargs)
         return context
+
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
 
 
 class MovieDetailView(DetailView):

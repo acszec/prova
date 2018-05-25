@@ -6,7 +6,18 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12 col-lg-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="active"><a href="{{ request.get_full_path }}">Clientes</a></li>
+        </ol>
+
         <h3 class="text-center">Clientes</h3>
+        <form method="GET" class="form-inline">
+            <div class="form-group">
+                <input class="form-control" type="search" name="query" placeholder="buscar...">
+                <input class="btn btn-primary" type="submit" value="Buscar">
+            </div>
+        </form>
     </div>
 </div>
 

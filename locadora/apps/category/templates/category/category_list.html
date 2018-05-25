@@ -6,6 +6,11 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12 col-lg-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="active"><a href="{% url 'category_list' %}">Categorias</a></li>
+        </ol>
+
         <h3 class="text-center">Categorias</h3>
     </div>
 </div>
@@ -15,11 +20,13 @@
         <table class="table table-striped">
             <thead>
                 <th>Nome</th>
+                <th>Quantidade de filmes</th>
             </thead>
             <tbody>
                 {% for category in category_list %}
                     <tr>
                         <td>{{ category.name }}</td>
+                        <td>{{ category.movie_set.count }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

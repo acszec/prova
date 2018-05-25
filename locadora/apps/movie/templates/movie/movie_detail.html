@@ -6,6 +6,12 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12 col-lg-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'movie_list' %}">Filmes</a></li>
+            <li class="active"><a href="{% url 'movie_detail' movie_id=movie.pk %}">{{ movie.name }}</a></li>
+        </ol>
+
         <h3 class="text-center"><small>{{ movie.category.name }}</small></h3>
         <h3 class="text-center">{{ movie }}</h3>
     </div>
