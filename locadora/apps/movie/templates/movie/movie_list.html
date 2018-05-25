@@ -22,7 +22,7 @@
             <tbody>
                 {% for movie in movie_list %}
                     <tr>
-                        <td>{{ movie.name }}</td>
+                        <td><a href="{% url 'movie_detail' movie_id=movie.pk %}">{{ movie.name }}</a></td>
                         <td>{{ movie.category.name }}</td>
                         <td>{{ movie.quantity }}</td>
                         <td>{{ movie.rented }}</td>

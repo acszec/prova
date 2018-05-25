@@ -7,4 +7,5 @@ from views import *
 
 urlpatterns = [
     url(r'^movie/$', MovieListView.as_view(), name='movie_list'),
+    url(r'^movie/(?P<movie_id>[0-9]+)$', MovieDetailView.as_view(), name='movie_detail'),
 ]

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}filme{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <h3 class="text-center"><small>{{ movie.category.name }}</small></h3>
+        <h3 class="text-center">{{ movie }}</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Total: {{ movie.quantity }}</td>
+                    <td>Alugados: {{ movie.rented }}</td>
+                    <td>Saldo: {{ movie.remaining }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        {% if movie.customer_set.count %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Clientes que alugaram...</h4>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>#id</th>
+                            <th>nome</th>
+                        </thead>
+                        <tbody>
+                            {% for customer in movie.customer_set.all %}
+                                <tr>
+                                    <td><a href="{% url 'customer_detail' customer_id=customer.pk %}" target="_blank">{{ customer.id }}</a></td>
+                                    <td><a href="{% url 'customer_detail' customer_id=customer.pk %}" target="_blank">{{ customer.name }}</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

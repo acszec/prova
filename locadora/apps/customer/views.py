@@ -38,13 +38,19 @@ class CustomerDetailView(DetailView):
         return obj
 
     def post(self, *args, **kwargs):
+        import ipdb
+        # ipdb.set_trace()
         request = self.request.POST.copy()
         del request['csrfmiddlewaretoken']
         self.object = self.get_object()
         for _id in request.keys():
             movie = Movie.objects.get(id=_id)
-            self.object.rented_movies.add(movie)
-            movie.rented +=1
+            if not self.object.rented_movies.filter(id=movie.id):
+                self.object.rented_movies.add(movie)
+                movie.rented +=1
+            else:
+                movie.rented -=1
+                self.object.rented_movies.remove(movie)
             movie.save()
         self.object.save()
         return HttpResponseRedirect(reverse('customer_detail', kwargs={'customer_id': self.object.pk}))

@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # APPS
+    url(r'^', include('apps.home.urls')),
     url(r'^', include('apps.movie.urls')),
     url(r'^', include('apps.category.urls')),
     url(r'^', include('apps.customer.urls')),
